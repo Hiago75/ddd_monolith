@@ -1,5 +1,5 @@
 import Id from "../../../@shared/domain/value-object/id.value-object";
-import { Address } from "../../../@shared/domain/value-object/address.value-object";
+import Address from "../../../@shared/domain/value-object/address";
 import Product from "../../domain/product";
 import FindInvoiceUseCase from "./find-invoice.usecase";
 
@@ -7,14 +7,7 @@ const mockInvoiceInput = {
   id: new Id("1"),
   name: "name",
   document: "123",
-  address: new Address({
-    street: "street",
-    number: "1",
-    complement: "complement",
-    city: "city",
-    state: "state",
-    zipCode: "123456",
-  }),
+  address: new Address("street", "1", "complement", "city", "state", "123456"),
   items: [
     new Product({
       id: new Id("1"),

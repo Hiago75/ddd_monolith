@@ -1,5 +1,5 @@
 import Id from "../../@shared/domain/value-object/id.value-object";
-import { Address } from "../../@shared/domain/value-object/address.value-object";
+import Address from "../../@shared/domain/value-object/address";
 import Invoice from "../domain/invoice";
 import Product from "../domain/product";
 import InvoiceItemModel from "./invoice-item.model";
@@ -30,14 +30,7 @@ describe("InvoiceRepository test", () => {
       id: new Id("1"),
       name: "John Doe",
       document: "123456789",
-      address: new Address({
-        street: "Street",
-        number: "123",
-        complement: "Complement",
-        city: "City",
-        state: "State",
-        zipCode: "12345678"
-      }),
+      address: new Address("Street", "123", "Complement", "City", "State", "12345678"),
       items: [
         new Product({
           id: new Id("1"),
@@ -86,14 +79,7 @@ describe("InvoiceRepository test", () => {
       id: new Id("1"),
       name: "John Doe",
       document: "123456789",
-      address: new Address({
-        street: "Street",
-        number: "123",
-        complement: "Complement",
-        city: "City",
-        state: "State",
-        zipCode: "12345678"
-      }),
+      address: new Address("Street", "123", "Complement", "City", "State", "12345678"),
       items: [
         new Product({
           id: new Id("1"),

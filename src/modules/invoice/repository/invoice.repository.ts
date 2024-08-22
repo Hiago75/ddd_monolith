@@ -1,5 +1,5 @@
 import Id from "../../@shared/domain/value-object/id.value-object";
-import { Address } from "../../@shared/domain/value-object/address.value-object";
+import Address from "../../@shared/domain/value-object/address";
 import Invoice from "../domain/invoice";
 import Product from "../domain/product";
 import InvoiceGateway from "../gateway/invoice.gateway";
@@ -39,14 +39,7 @@ export default class InvoiceRepository implements InvoiceGateway {
       id: new Id(result.id),
       name: result.name,
       document: result.document,
-      address: new Address({
-        street: result.street,
-        number: result.number,
-        complement: result.complement,
-        city: result.city,
-        state: result.state,
-        zipCode: result.zipCode,
-      }),
+      address: new Address(result.street, result.number, result.complement, result.city, result.state, result.zipCode),
       items: result.items.map((item: any) => new Product({
         id: new Id(item.id),
         name: item.name,
