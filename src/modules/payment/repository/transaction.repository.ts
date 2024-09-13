@@ -22,6 +22,7 @@ export default class TransactionRepository implements PaymentGateway {
       updatedAt: input.updatedAt,
     })
   }
+
   public async pay(): Promise<void> {
     console.log("TransactionRepository: pay");
   }

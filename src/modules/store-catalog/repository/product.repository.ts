@@ -19,16 +19,23 @@ export default class ProductRepository implements ProductGateway {
   }
 
   async find(id: string): Promise<ProductEntity> {
-    const product = await ProductModel.findOne({
-      where: { id },
-      raw: true
-    })
+    console.log("id do repository", id);
+    try {
+      const product = await ProductModel.findOne({
+        where: { id },
+        raw: true
+      })
 
-    return new Product({
-      id: new Id(product.id),
-      name: product.name,
-      description: product.description,
-      salesPrice: product.salesPrice
-    })
+      console.log("produto do repository", product)
+
+      return new Product({
+        id: new Id(product.id),
+        name: product.name,
+        description: product.description,
+        salesPrice: product.salesPrice
+      })
+    } catch (e) {
+      console.log(e)
+    }
   }
 }

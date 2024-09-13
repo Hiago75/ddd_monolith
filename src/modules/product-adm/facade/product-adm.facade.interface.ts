@@ -1,3 +1,5 @@
+import { AddProductOutputDto } from "../usecase/add-proudct/add-product.dto";
+
 export interface AddProductFacadeInputDto {
   id?: string;
   name: string;
@@ -16,6 +18,6 @@ export interface CheckStockFacadeOutputDto {
 }
 
 export default interface ProductAdmFacadeInterface {
-  addProduct(input: AddProductFacadeInputDto): Promise<void>;
+  addProduct(input: AddProductFacadeInputDto): Promise<AddProductOutputDto>;
   checkStock(input: CheckStockFacadeInputDto): Promise<CheckStockFacadeOutputDto>
 }

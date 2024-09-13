@@ -20,8 +20,6 @@ describe("E2E test for product", () => {
       stock: 10
     })
 
-    console.log(response.body)
-
     expect(response.status).toEqual(200)
     expect(response.status).toBe(200);
     expect(response.body.id).toBe('1');

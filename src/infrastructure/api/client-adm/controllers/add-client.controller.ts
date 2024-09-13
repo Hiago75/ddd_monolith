@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { AddClientFacadeInputDto } from "../../../modules/client-adm/facade/client-adm.facade.interface";
+import { AddClientFacadeInputDto } from "../../../../modules/client-adm/facade/client-adm.facade.interface";
 import BaseServiceInteface from "../../@shared/domain/base-service.interface";
 import BaseControllerInteface from "../../@shared/domain/base-controller.interface";
 

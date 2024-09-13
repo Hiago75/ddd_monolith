@@ -29,34 +29,46 @@ export default class PlaceOrderUsecase implements UseCaseInterface {
   }
 
   async execute(input: PlaceOrderInputDto): Promise<PlaceOrderOutputDto> {
+    console.log('chamou o facade')
     const client = await this._clientFacade.find({ id: input.clientId });
 
     if (!client) {
       throw new Error("Client not found");
     }
 
+    console.log('achou o client')
     await this.validateProducts(input)
+
+    console.log('passou do validate')
 
     const products = await Promise.all(
       input.products.map(p => this.getProduct(p.productId))
     );
 
+    console.log('passou do products')
+
     const myClient = new Client({
       id: new Id(client.id),
       name: client.name,
       email: client.email,
-      address: client.address.street,
     })
+
+    console.log('passou do segundo client')
 
     const order = new Order({
       client: myClient,
       products
     })
 
+    console.log('passou do order');
+
+
     const payment = await this._paymentFacade.proccess({
       orderId: order.id.id,
       amount: order.total
     })
+
+    console.log('passou do payment');
 
     const paymentStatus = payment.status.toUpperCase();
 
@@ -83,6 +95,8 @@ export default class PlaceOrderUsecase implements UseCaseInterface {
 
     paymentStatus === "APPROVED" && order.approved();
     this._repository.addOrder(order)
+
+    console.log('passou do approved');
 
     return {
       id: order.id.id,
