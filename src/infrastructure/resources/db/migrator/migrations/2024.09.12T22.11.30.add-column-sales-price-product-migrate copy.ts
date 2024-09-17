@@ -6,7 +6,7 @@ const tableName = "products";
 export const up: MigrationFn<Sequelize> = async ({ context: sequelize }) => {
   await sequelize.getQueryInterface().addColumn(tableName, "salesPrice", {
     type: DataTypes.FLOAT,
-    allowNull: false,
+    allowNull: true,
   });
 };
 

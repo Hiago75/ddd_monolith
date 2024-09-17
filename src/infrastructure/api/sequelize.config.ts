@@ -16,19 +16,19 @@ export async function setupSequelize(): Promise<Sequelize> {
     sequelize = new Sequelize({
       dialect: "sqlite",
       storage: ":memory:",
-      logging: false
+      logging: true
     });
 
     sequelize.addModels([
       ClientModel,
       ClientOrderModel,
-      ProductOrderModel,
+      InvoiceItemModel,
+      InvoiceModel,
       OrderModel,
       TransactionModel,
       StoreCatalogProductModel,
       AdmProductModel,
-      InvoiceItemModel,
-      InvoiceModel,
+      ProductOrderModel,
     ]);
 
     await sequelize.sync();

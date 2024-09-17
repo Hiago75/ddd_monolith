@@ -10,7 +10,7 @@ export const migrator = (sequelize: Sequelize) => new Umzug({
   storage: new SequelizeStorage({
     sequelize,
   }),
-  logger: undefined,
+  logger: console,
   create: {
     folder: "src/infra/db/sequelize/migrations",
   },

@@ -13,8 +13,8 @@ export default class OrderModel extends Model {
   declare client_id: string;
 
   @BelongsTo(() => ClientOrder)
-  declare client: ClientOrder;
+  declare client: Awaited<ClientOrder>;
 
   @HasMany(() => ProductOrder, { onUpdate: 'CASCADE' })
-  declare products?: ProductOrder[];
+  declare products?: Awaited<ProductOrder[]>;
 }

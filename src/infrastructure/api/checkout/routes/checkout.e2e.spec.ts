@@ -7,6 +7,7 @@ import { Sequelize } from 'sequelize-typescript';
 import ClientModel from '../../../../modules/client-adm/repository/client.model';
 import { QueryTypes } from 'sequelize';
 
+
 const addressMock = () => ({
   street: "Rua Qualquer",
   number: "123",
@@ -83,11 +84,10 @@ describe('E2E test for checkout', () => {
   });
 
   afterEach(async () => {
-    await migrator.down();
+    await migrator.down({ to: "2024.09.12T22.10.30.create-order-table-migration.ts" });
   });
 
   afterAll(async () => {
-    await migrator.down();
     await sequelizeInstance.close();
   });
 
@@ -110,8 +110,6 @@ describe('E2E test for checkout', () => {
       clientId: "1c",
       products,
     });
-
-    console.log(response.body);
 
     expect(response.status).toBe(200);
     expect(response.body.status).toBe("approved");

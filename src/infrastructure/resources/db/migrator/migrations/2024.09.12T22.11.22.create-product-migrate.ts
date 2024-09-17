@@ -1,7 +1,7 @@
 import { DataTypes, Sequelize } from "sequelize";
 import { MigrationFn } from "umzug";
 
-const tableName = "invoice_items";
+const tableName = 'products';
 
 export const up: MigrationFn<Sequelize> = async ({ context: sequelize }) => {
   await sequelize.getQueryInterface().createTable(tableName, {
@@ -14,21 +14,25 @@ export const up: MigrationFn<Sequelize> = async ({ context: sequelize }) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    price: {
-      type: DataTypes.FLOAT,
-      allowNull: false,
+    description: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
-    invoiceId: {
-      type: DataTypes.UUID,
-      allowNull: false,
+    purchasePrice: {
+      type: DataTypes.FLOAT,
+      allowNull: true,
+    },
+    stock: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
     },
     createdAt: {
       type: DataTypes.DATE,
-      allowNull: false,
+      allowNull: true,
     },
     updatedAt: {
       type: DataTypes.DATE,
-      allowNull: false,
+      allowNull: true,
     },
   });
 };

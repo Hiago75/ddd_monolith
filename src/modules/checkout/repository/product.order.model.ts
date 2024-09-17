@@ -17,10 +17,10 @@ export default class ProductOrderModel extends Model {
   @Column({ allowNull: true })
   declare description: string;
 
-  @Column({ allowNull: true, type: 'decimal' })
+  @Column({ allowNull: true })
   declare purchasePrice: number;
 
-  @Column({ allowNull: true, type: 'decimal' })
+  @Column({ allowNull: true })
   declare salesPrice: number;
 
   @Column({ allowNull: true })
@@ -28,11 +28,11 @@ export default class ProductOrderModel extends Model {
 
   @ForeignKey(() => InvoiceModel)
   @Column({ allowNull: true })
-  declare invoiceId: string;
+  declare invoice_id: string;
 
   @ForeignKey(() => OrderModel)
   @Column({ allowNull: true })
-  declare orderId: string;
+  declare order_id: string;
 
   @Column({ allowNull: true })
   declare createdAt: Date;
