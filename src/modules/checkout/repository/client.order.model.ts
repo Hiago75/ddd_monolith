@@ -1,7 +1,8 @@
-import { Column, Model, PrimaryKey, Table } from "sequelize-typescript";
+import { Column, HasMany, Model, PrimaryKey, Table } from "sequelize-typescript";
+import OrderModel from "./order.model";
 
 @Table({
-  tableName: 'client_order',
+  tableName: 'clients',
   timestamps: false,
 })
 export default class ClientOrderModel extends Model {
@@ -14,4 +15,7 @@ export default class ClientOrderModel extends Model {
 
   @Column({ allowNull: false })
   declare email: string;
+
+  @HasMany(() => OrderModel)
+  declare orders?: Awaited<OrderModel[]>
 }

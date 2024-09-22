@@ -1,4 +1,4 @@
-import { Column, ForeignKey, Model, PrimaryKey, Table } from "sequelize-typescript";
+import { BelongsTo, Column, ForeignKey, Model, PrimaryKey, Table } from "sequelize-typescript";
 import OrderModel from "./order.model";
 import InvoiceModel from "../../invoice/repository/invoice.model";
 
@@ -33,6 +33,9 @@ export default class ProductOrderModel extends Model {
   @ForeignKey(() => OrderModel)
   @Column({ allowNull: true })
   declare order_id: string;
+
+  @BelongsTo(() => OrderModel, { foreignKey: 'order_id' })
+  declare order: Awaited<OrderModel>;
 
   @Column({ allowNull: true })
   declare createdAt: Date;

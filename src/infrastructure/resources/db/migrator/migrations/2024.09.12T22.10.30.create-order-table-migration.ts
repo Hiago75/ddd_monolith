@@ -12,7 +12,7 @@ export const up: MigrationFn<Sequelize> = async ({ context: sequelize }) => {
     },
     client_id: {
       type: DataTypes.UUID,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: 'clients',
         key: 'id',

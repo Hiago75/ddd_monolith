@@ -10,6 +10,7 @@ import ClientOrder from "./client.order.model"
 import OrderRepository from "./order.repository"
 import InvoiceModel from "../../invoice/repository/invoice.model"
 import InvoiceItemModel from "../../invoice/repository/invoice-item.model"
+import { QueryTypes } from "sequelize"
 
 describe('order test unit', () => {
 
@@ -42,7 +43,7 @@ describe('order test unit', () => {
       logging: false,
       sync: { force: true }
     });
-    sequelize.addModels([InvoiceModel, InvoiceItemModel, ClientOrder, ProductOrder, OrderModel]);
+    sequelize.addModels([InvoiceModel, InvoiceItemModel, ClientOrder, OrderModel, ProductOrder]);
     await sequelize.sync();
   })
 
@@ -56,23 +57,73 @@ describe('order test unit', () => {
     expect(result.client.name).toBe('Client 1')
     expect(result.client.address).toBeUndefined()
     expect(result.products.length).toBe(2)
-    expect(result.products.length).toBe(2)
     expect(result.products[0].id.id).toBe('p1')
     expect(result.products[1].id.id).toBe('p2')
   }
 
   it('should create an order', async () => {
     const order = createOrder();
+    createProductCatalog('p1')
+    createProductCatalog("p2")
+
     const orderRepository = new OrderRepository();
     const result = await orderRepository.addOrder(order);
+
     validateResult(result)
   });
 
   it('should find an order', async () => {
     const order = createOrder();
+    createProductCatalog('p1')
+    createProductCatalog("p2")
+
     const orderRepository = new OrderRepository();
     await orderRepository.addOrder(order);
     const result = await orderRepository.findOrder('1')
+
     validateResult(result)
   }, 50000)
+
+  const createProductCatalog = async (id: string) => {
+    const price = 100.0;
+
+    const product = {
+      id: id,
+      name: "Product 1",
+      description: "Description 1",
+      purchasePrice: price,
+      stock: 10,
+      salesPrice: price,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    }
+
+    await sequelize.query(`
+      INSERT INTO products (
+        id,
+        name,
+        description,
+        purchasePrice,
+        stock,
+        salesPrice,
+        createdAt,
+        updatedAt
+      )
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    `, {
+      replacements: [
+        product.id,
+        product.name,
+        product.description,
+        product.purchasePrice,
+        product.stock,
+        product.salesPrice,
+        product.createdAt,
+        product.updatedAt
+      ],
+      type: QueryTypes.INSERT
+    });
+
+    return product;
+  };
 })

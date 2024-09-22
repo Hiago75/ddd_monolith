@@ -16,7 +16,7 @@ export async function setupSequelize(): Promise<Sequelize> {
     sequelize = new Sequelize({
       dialect: "sqlite",
       storage: ":memory:",
-      logging: true
+      logging: false
     });
 
     sequelize.addModels([

@@ -94,8 +94,8 @@ describe('E2E test for checkout', () => {
 
   it('should create a checkout', async () => {
     await createClient();
-    const product1 = await createProductCatalog("1");
-    const product2 = await createProductCatalog("2");
+    const product1 = await createProductCatalog("1p");
+    const product2 = await createProductCatalog("2p");
 
     const products = [
       {
@@ -115,7 +115,7 @@ describe('E2E test for checkout', () => {
     expect(response.body.status).toBe("approved");
     expect(response.body.id).toBeDefined();
     expect(response.body.invoiceId).toBeDefined();
-    expect(response.body.products).toStrictEqual([{ productId: 1 }, { productId: 2 }])
+    expect(response.body.products).toStrictEqual([{ productId: "1p" }, { productId: "2p" }])
     expect(response.body.total).toBe(product1.salesPrice + product2.salesPrice);
   })
 });

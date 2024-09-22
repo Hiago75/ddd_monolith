@@ -2,7 +2,7 @@ import { BelongsTo, Column, ForeignKey, HasMany, Model, PrimaryKey, Table } from
 import ClientOrder from "./client.order.model";
 import ProductOrder from "./product.order.model";
 
-@Table({ tableName: "order", timestamps: false })
+@Table({ tableName: "orders", timestamps: false })
 export default class OrderModel extends Model {
   @PrimaryKey
   @Column({ allowNull: false })

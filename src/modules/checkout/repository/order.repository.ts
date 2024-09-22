@@ -1,5 +1,6 @@
 import Address from "../../@shared/domain/value-object/address";
 import Id from "../../@shared/domain/value-object/id.value-object";
+import ProductModel from "../../store-catalog/repository/product.model";
 import Client from "../domain/client.entity";
 import Order from "../domain/order.entity";
 import CheckoutGateway from "../gateway/checkout.gateway";
@@ -29,10 +30,19 @@ export default class OrderRepository implements CheckoutGateway {
         products: products
       },
         {
-          include: [ClientOrder, ProductOrder]
+          include: [ClientOrder]
         });
     } catch (error) {
+      console.log(error)
       throw error
+    }
+
+
+    for (const p of products) {
+      await ProductOrder.update(
+        { order_id: order.id.id },
+        { where: { id: p.id } }
+      )
     }
 
     const result = await OrderModel.findOne({
