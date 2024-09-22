@@ -33,7 +33,6 @@ export default class OrderRepository implements CheckoutGateway {
           include: [ClientOrder]
         });
     } catch (error) {
-      console.log(error)
       throw error
     }
 
